@@ -46,27 +46,28 @@ public class Ball {
 
 		// check for bounce on a wall
 		if (x + radius > window_width) {
-			vx *= -wall_bounce_factor;
 			x = window_width - radius;
-//			if(Math.abs(vx) < unrecognizable_velocity)
+//			if(vx < unrecognizable_velocity)
 //				vx = 0;
-		} else if (x - radius < 0) {
 			vx *= -wall_bounce_factor;
+		} else if (x - radius < 0) {
 			x = radius;
-//			if(Math.abs(vx) < unrecognizable_velocity)
+//			if(vx < -unrecognizable_velocity)
 //				vx = 0;
+			vx *= -wall_bounce_factor;
 		}
 
 		if (y + radius > window_height) {
-			vy *= -wall_bounce_factor;
+			
 			y = window_height - radius;
-//			if(Math.abs(vy) < unrecognizable_velocity)
+//			if(vy < unrecognizable_velocity)
 //				vy = 0;
-		} else if (y - radius < 0) {
 			vy *= -wall_bounce_factor;
+		} else if (y - radius < 0) {
 			y = radius;
-//			if(Math.abs(vy) < unrecognizable_velocity)
+//			if(vy < -unrecognizable_velocity)
 //				vy = 0;
+			vy *= -wall_bounce_factor;
 		}
 
 		// calculate current position

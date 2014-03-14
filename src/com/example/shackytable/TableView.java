@@ -17,7 +17,7 @@ public class TableView extends View {
 	private ScheduledExecutorService scheduleTaskExecutor;
 	private Ball ball;
 
-	private boolean dirac = true;
+	private int dirac = 0;
 	
 	final static float frequency = 50f;
 
@@ -65,9 +65,9 @@ public class TableView extends View {
 
 	public void trigger_physics_engine() {
 		// calculate new position
-		if (dirac == true) {
-			ball.set_acceleration(0, 9.81f, window_width, window_height);
-			dirac = false;
+		if (dirac < 0.3f*frequency) {
+			ball.set_acceleration(15, 9.81f, window_width, window_height);
+			dirac++;
 		} else {
 			ball.set_acceleration(0, 9.81f, window_width, window_height);
 		}
