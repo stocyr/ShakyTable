@@ -1,0 +1,85 @@
+package com.example.shackytable;
+
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.util.Log;
+
+public class Ball {
+	private final static float wall_bounce_factor = 0.6f;
+	public final static float relative_size = 0.1f;
+	private final static float unrecognizable_velocity = 20;
+	public float radius;
+	private float inertia = 40f;
+	private float dt;
+	private Paint paint;
+
+	private float ax, ay; // acceleration
+	private float vx, vy; // velocity
+	private float x, y; // position (center of the ball!)
+
+	public Ball(float update_frequency) {
+		// initialize variables
+		dt = 1.0f / update_frequency;
+
+		paint = new Paint();
+		paint.setAntiAlias(true);
+		paint.setColor(Color.RED);
+		paint.setStyle(Paint.Style.FILL);
+	}
+
+	public void set_position(float position_x, float position_y) {
+		x = position_x;
+		y = position_y;
+	}
+
+	public void set_acceleration(float acceleration_x, float acceleration_y,
+			int window_width, int window_height) {
+		// set acceleration values
+		ax = acceleration_x;
+		ay = acceleration_y;
+
+		// calculate resulting speed and position
+		vx += inertia * dt * ax;
+		vy += inertia * dt * ay;
+		Log.d("set acceleration", "vx = "+vx+"\tvy = "+vy);
+
+		// check for bounce on a wall
+		if (x + radius > window_width) {
+			vx *= -wall_bounce_factor;
+			x = window_width - radius;
+//			if(Math.abs(vx) < unrecognizable_velocity)
+//				vx = 0;
+		} else if (x - radius < 0) {
+			vx *= -wall_bounce_factor;
+			x = radius;
+//			if(Math.abs(vx) < unrecognizable_velocity)
+//				vx = 0;
+		}
+
+		if (y + radius > window_height) {
+			vy *= -wall_bounce_factor;
+			y = window_height - radius;
+//			if(Math.abs(vy) < unrecognizable_velocity)
+//				vy = 0;
+		} else if (y - radius < 0) {
+			vy *= -wall_bounce_factor;
+			y = radius;
+//			if(Math.abs(vy) < unrecognizable_velocity)
+//				vy = 0;
+		}
+
+		// calculate current position
+		x += dt * vx;
+		y += dt * vy;
+	}
+
+	public void paint_ball(Canvas canvas) {
+		canvas.drawCircle(x, y, radius, paint);
+		//Log.d("scheduler", "drawing at " + x + " | " + y + ".");
+		// optional: ein heller Spiegelpunkt, der sich proportional zur Position
+		// im
+		// Feld auf dem Ball verschiebt - erweckt die Illusion, dass der Ball 3D
+		// ist.
+	}
+}
