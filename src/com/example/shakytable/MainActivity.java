@@ -1,4 +1,4 @@
-package com.example.shackytable;
+package com.example.shakytable;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -20,5 +20,17 @@ public class MainActivity extends Activity {
 		tv.setBackgroundColor(0xFF4F4F57);
 
 		setContentView(tv);
+	}
+	
+	@Override
+	public void onStop() {
+		tv.onStop();
+		super.onStop();
+	}
+	
+	@Override
+	public void onRestart() {
+		super.onRestart();
+		tv.onRestart();
 	}
 }

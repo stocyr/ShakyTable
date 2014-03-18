@@ -1,4 +1,4 @@
-package com.example.shackytable;
+package com.example.shakytable;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -6,16 +6,19 @@ import android.graphics.Paint;
 import android.util.Log;
 
 public class Ball {
-	private final static float wall_bounce_factor = 0.6f;
+	private final static float wall_bounce_factor = 1f;
 	public final static float relative_size = 0.1f;
-	private final static float unrecognizable_velocity = 20;
+	//private final static float unrecognizable_velocity = 20;
+	private final static float friction = 0.99f;
 	public float radius;
 	private float inertia = 40f;
+	public final static float[] masses = {0.5f, 1f, 2, 4};
+	private float mass = masses[1];
 	private float dt;
 	private Paint paint;
 
 	private float ax, ay; // acceleration
-	private float vx, vy; // velocity
+	public float vx, vy; // velocity
 	private float x, y; // position (center of the ball!)
 
 	public Ball(float update_frequency) {
@@ -40,8 +43,10 @@ public class Ball {
 		ay = acceleration_y;
 
 		// calculate resulting speed and position
-		vx += inertia * dt * ax;
-		vy += inertia * dt * ay;
+		vx += inertia * dt * ax / mass;
+		vy += inertia * dt * ay / mass;
+		vx *= friction;
+		vy *= friction;
 		Log.d("set acceleration", "vx = "+vx+"\tvy = "+vy);
 
 		// check for bounce on a wall
@@ -73,6 +78,10 @@ public class Ball {
 		// calculate current position
 		x += dt * vx;
 		y += dt * vy;
+	}
+	
+	public void set_mass(float mass) {
+		this.mass = mass;
 	}
 
 	public void paint_ball(Canvas canvas) {
