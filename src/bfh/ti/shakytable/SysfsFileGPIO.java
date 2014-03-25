@@ -118,7 +118,7 @@ public class SysfsFileGPIO {
 			 */
 			FileWriter directionFile = new FileWriter(SysFsGpio + gpio
 					+ SysFsDirection);
-
+			
 			/*
 			 * Set port for output
 			 */

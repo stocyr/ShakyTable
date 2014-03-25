@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
 	@Override
 	public void onStop() {
 		tv.onStop();
-		//android.os.Process.killProcess(android.os.Process.myPid());
-		//finish();
+		android.os.Process.killProcess(android.os.Process.myPid());
+		finish();
 		super.onStop();
 	}
 	

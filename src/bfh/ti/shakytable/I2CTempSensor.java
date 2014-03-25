@@ -6,17 +6,17 @@ import android.graphics.Point;
 public class I2CTempSensor {
 	/* MCP9800 Register pointers */
 
-	private static final char MCP9800_CONFIG = 0x20;/*0x01; 
+	private static final char MCP9800_CONFIG = 0x20;
 													/*
 													 * Sensor Configuration
 													 * Register
 													 */
 
 	/* Sensor Configuration Register Bits */
-	private static final char MCP9800_12_BIT = 0x67;//0x60;
+	private static final char MCP9800_12_BIT = 0x67;
 
 	/* i2c Address of MCP9802 device */
-	private static final char MCP9800_I2C_ADDR = 0x1c;//0x48;
+	private static final char MCP9800_I2C_ADDR = 0x1c;
 
 	/* i2c device file name */
 	private static final String MCP9800_FILE_NAME = "/dev/i2c-3";
@@ -49,9 +49,6 @@ public class I2CTempSensor {
 				i2cCommBuffer[1] = MCP9800_12_BIT;
 				i2c.write(fileHande, i2cCommBuffer, 2);
 
-//				/* Setup mcp9800 register to read the temperature */
-//				i2cCommBuffer[0] = MCP9800_TEMP;
-//				i2c.write(fileHande, i2cCommBuffer, 1);
 			}
 
 		} else {
