@@ -1,4 +1,4 @@
-package bfh.ti.i2c_jni_template;
+package bfh.ti.shakytable;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,7 +20,6 @@ public class TableView extends View {
 	private ScheduledExecutorService scheduleTaskExecutor;
 	private Ball ball;
 
-	private int dirac = 0;
 	private Point acceleration = new Point();
 
 	final static float led_velocity_sensivity = 40;

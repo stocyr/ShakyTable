@@ -29,7 +29,7 @@
 
 #include <android/log.h>
 
-#include "bfh_ti_i2c_jni_template_I2C.h"
+#include "bfh_ti_shakytable_I2C.h"
 
 /* Define if we use the emulator */
 #undef EMULATOR
@@ -45,7 +45,7 @@
 /* Open the i2c device
 /************************************************************************************************************************************/
 
-JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_open(JNIEnv *env, jobject obj, jstring file)
+JNIEXPORT jint JNICALL Java_bfh_ti_shackytable_I2C_open(JNIEnv *env, jobject obj, jstring file)
   {
    #ifndef EMULATOR
 
@@ -79,7 +79,7 @@ JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_open(JNIEnv *env, jobj
 /* Set the i2c slave address																										*/
 /************************************************************************************************************************************/
 
-JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_SetSlaveAddres(JNIEnv *env, jobject obj, jint file, jint slaveAddr)
+JNIEXPORT jint JNICALL Java_bfh_ti_shakytable_I2C_SetSlaveAddres(JNIEnv *env, jobject obj, jint file, jint slaveAddr)
   {
    #ifndef EMULATOR
 
@@ -108,7 +108,7 @@ JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_SetSlaveAddres(JNIEnv 
 /* Read from the i2c device																											*/
 /************************************************************************************************************************************/
 
-JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_read(JNIEnv * env, jobject obj, jint fileHander, jintArray bufArray, jint len)
+JNIEXPORT jint JNICALL Java_bfh_ti_shakytable_I2C_read(JNIEnv * env, jobject obj, jint fileHander, jintArray bufArray, jint len)
 
   {
    #ifndef EMULATOR
@@ -176,7 +176,7 @@ err0:
 /* Write to the i2c device																											*/
 /************************************************************************************************************************************/
 
-JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_write(JNIEnv *env, jobject obj, jint fileHander, jintArray inJNIArray, jint len)
+JNIEXPORT jint JNICALL Java_bfh_ti_shakytable_I2C_write(JNIEnv *env, jobject obj, jint fileHander, jintArray inJNIArray, jint len)
  {
   #ifndef EMULATOR
 
@@ -230,7 +230,7 @@ JNIEXPORT jint JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_write(JNIEnv *env, job
 /* Close the i2c interface																										    */
 /************************************************************************************************************************************/
 
-JNIEXPORT void JNICALL Java_bfh_ti_i2c_1jni_1template_I2C_close(JNIEnv *env, jobject obj, jint fileHander)
+JNIEXPORT void JNICALL Java_bfh_ti_shakytable_I2C_close(JNIEnv *env, jobject obj, jint fileHander)
  {
    #ifndef EMULATOR
     close(fileHander);

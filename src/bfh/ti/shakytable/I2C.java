@@ -13,7 +13,7 @@
  ***************************************************************************
  */
 
-package bfh.ti.i2c_jni_template;
+package bfh.ti.shakytable;
 
 /**
  * This is a I2C operation class

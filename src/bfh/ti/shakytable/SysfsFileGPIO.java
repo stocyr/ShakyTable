@@ -13,7 +13,7 @@
  *                                     one independent GPIO.
  ***************************************************************************
  */
-package bfh.ti.i2c_jni_template;
+package bfh.ti.shakytable;
 
 import java.io.BufferedReader;
 import java.io.File;

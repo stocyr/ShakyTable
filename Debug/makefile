@@ -24,19 +24,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: ShackyTable
+all: ShakyTable
 
 # Tool invocations
-ShackyTable: $(OBJS) $(USER_OBJS)
+ShakyTable: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc  -o "ShackyTable" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "ShakyTable" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) ShackyTable
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) ShakyTable
 	-@echo ' '
 
 .PHONY: all clean dependents
