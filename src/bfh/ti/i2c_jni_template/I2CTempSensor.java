@@ -5,10 +5,7 @@ import android.graphics.Point;
 
 public class I2CTempSensor {
 	/* MCP9800 Register pointers */
-	private static final char MCP9800_TEMP = 0x00; /*
-													 * Ambient Temperature
-													 * Register
-													 */
+
 	private static final char MCP9800_CONFIG = 0x20;/*0x01; 
 													/*
 													 * Sensor Configuration
@@ -29,11 +26,9 @@ public class I2CTempSensor {
 	private int fileHande;
 
 	private Point acc;
-	private double TempC;
 	private int Temperature;
 
 	public I2CTempSensor() {
-		// TODO Auto-generated constructor stub
 		/* Instantiate the new i2c device */
 		acc = new Point();
 		
@@ -54,9 +49,9 @@ public class I2CTempSensor {
 				i2cCommBuffer[1] = MCP9800_12_BIT;
 				i2c.write(fileHande, i2cCommBuffer, 2);
 
-				/* Setup mcp9800 register to read the temperature */
-				i2cCommBuffer[0] = MCP9800_TEMP;
-				i2c.write(fileHande, i2cCommBuffer, 1);
+//				/* Setup mcp9800 register to read the temperature */
+//				i2cCommBuffer[0] = MCP9800_TEMP;
+//				i2c.write(fileHande, i2cCommBuffer, 1);
 			}
 
 		} else {
@@ -98,8 +93,6 @@ public class I2CTempSensor {
 				Temperature -= 255;
 			}
 			acc.y = Temperature;
-		} else {
-			TempC = -1;
 		}
 
 		return acc;

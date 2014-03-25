@@ -1,5 +1,5 @@
-/home/student/workspace/I2C_JNI_Template/obj/local/armeabi/objs/i2c/i2cInterface.o: \
- /home/student/workspace/I2C_JNI_Template/jni/i2cInterface.c \
+/home/student/workspace/ShackyTable/obj/local/armeabi/objs/i2c/i2cInterface.o: \
+ /home/student/workspace/ShackyTable/jni/i2cInterface.c \
  /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/stdio.h \
  /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/sys/cdefs.h \
  /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/sys/cdefs_elf.h \
@@ -50,7 +50,7 @@
  /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/linux/i2c.h \
  /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/jni.h \
  /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/android/log.h \
- /home/student/workspace/I2C_JNI_Template/jni/bfh_ti_i2c_jni_template_I2C.h
+ /home/student/workspace/ShackyTable/jni/bfh_ti_i2c_jni_template_I2C.h
 
 /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/stdio.h:
 
@@ -152,4 +152,4 @@
 
 /opt/android/android-ndk-r9c/platforms/android-17/arch-arm/usr/include/android/log.h:
 
-/home/student/workspace/I2C_JNI_Template/jni/bfh_ti_i2c_jni_template_I2C.h:
+/home/student/workspace/ShackyTable/jni/bfh_ti_i2c_jni_template_I2C.h:

@@ -1,4 +1,4 @@
-package com.example.shakytable;
+package bfh.ti.i2c_jni_template;
 
 import android.graphics.Canvas;
 import android.graphics.Color;

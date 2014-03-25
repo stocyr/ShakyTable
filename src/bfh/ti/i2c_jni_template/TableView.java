@@ -1,12 +1,14 @@
-package com.example.shakytable;
+package bfh.ti.i2c_jni_template;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
@@ -19,9 +21,12 @@ public class TableView extends View {
 	private Ball ball;
 
 	private int dirac = 0;
+	private Point acceleration = new Point();
 
 	final static float led_velocity_sensivity = 40;
 	final static float frequency = 50f;
+	
+	private I2CTempSensor temp;
 
 	private SysfsFileGPIO led1;
 	private SysfsFileGPIO led2;
@@ -59,10 +64,23 @@ public class TableView extends View {
 		button4.set_direction_in();
 
 		// initialize I2C
-		// -> TODO
+		temp = new I2CTempSensor();
 	}
 	
 	public void onStop() {
+		temp.close();
+/*		if (timer != null) {
+			timer.cancel();
+			timer.purge();
+			timer = null;
+		}
+
+		if (myTimerT != null) {
+			myTimerT.cancel();
+			myTimerT = null;
+		}*/
+		
+		
 		scheduleTaskExecutor.shutdown();
 		// TODO: doesn't work yet - they still light up after killing!!
 		led1.write_value(1);
@@ -109,9 +127,10 @@ public class TableView extends View {
 		scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
+				acceleration = temp.getTemp();
 				handle_buttons();
 				handle_leds();
-				trigger_physics_engine();
+				trigger_physics_engine(acceleration.x, acceleration.y);
 			}
 		}, 0, (int) (1000 / frequency), TimeUnit.MILLISECONDS);
 	}
@@ -162,14 +181,9 @@ public class TableView extends View {
 		}
 	}
 
-	public void trigger_physics_engine() {
+	public void trigger_physics_engine(int x, int y) {
 		// calculate new position
-		if (dirac < 0.3f * frequency) {
-			ball.set_acceleration(15, 9.81f, window_width, window_height);
-			dirac++;
-		} else {
-			ball.set_acceleration(0, 9.81f, window_width, window_height);
-		}
+		ball.set_acceleration(x, y, window_width, window_height);
 
 		// tell view to redraw
 		postInvalidate();
