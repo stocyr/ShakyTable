@@ -47,7 +47,6 @@ public class Ball {
 		vy += inertia * dt * ay / mass;
 		vx *= friction;
 		vy *= friction;
-		Log.d("set acceleration", "vx = "+vx+"\tvy = "+vy);
 
 		// check for bounce on a wall
 		if (x + radius > window_width) {

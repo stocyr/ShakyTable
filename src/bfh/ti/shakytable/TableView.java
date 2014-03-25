@@ -133,9 +133,10 @@ public class TableView extends View {
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 				acceleration = motion.getTemp();
+				Log.d("new acceleration", "ax = "+acceleration.x+"\tay = "+acceleration.y);
 				handle_buttons();
 				handle_leds();
-				trigger_physics_engine(acceleration.x, acceleration.y);
+				trigger_physics_engine(acceleration.x-2, acceleration.y);
 			}
 		}, 0, (int) (1000 / frequency), TimeUnit.MILLISECONDS);
 	}
