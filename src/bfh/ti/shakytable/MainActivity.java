@@ -2,6 +2,7 @@ package bfh.ti.shakytable;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -24,6 +25,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onStop() {
+		Log.d("mainActivity", "onStop trigger");
 		tv.onStop();
 		// TODO: check whether this is neccessary
 		android.os.Process.killProcess(android.os.Process.myPid());
@@ -33,6 +35,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onRestart() {
+		Log.d("mainActivity", "onRestart trigger");
 		super.onRestart();
 		tv.onRestart();
 	}

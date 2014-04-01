@@ -9,7 +9,7 @@ public class Ball {
 	private final static float wall_bounce_factor = 0.8f;
 	public final static float relative_size = 0.1f;
 	//private final static float unrecognizable_velocity = 20;
-	private final static float friction = 0.99f;
+	private final static float friction = 0.995f;
 	public float radius;
 	private float inertia = 40f;
 	public final static float[] masses = {0.25f, 0.75f, 2, 5};
@@ -85,7 +85,6 @@ public class Ball {
 
 	public void paint_ball(Canvas canvas) {
 		canvas.drawCircle(x, y, radius, paint);
-		//Log.d("scheduler", "drawing at " + x + " | " + y + ".");
 		// optional: ein heller Spiegelpunkt, der sich proportional zur Position
 		// im
 		// Feld auf dem Ball verschiebt - erweckt die Illusion, dass der Ball 3D

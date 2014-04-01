@@ -11,6 +11,15 @@
  * \remark  V1.1, STOLC2, 18.03.2014   changed read/write datatypes to int
  * \remark  V1.2, STOLC2, 18.03.2014   modified so that each instance means
  *                                     one independent GPIO.
+ * \remark  V1.3, STOLC2, 01.04.2014   changed all file-related objects to
+ *                                     fields -> this should have fixed the
+ *                                     massive execution of the GC. However
+ *                                     now i get the following errors all
+ *                                     the time when accessing ANY file:
+ *                                     
+ * java.io.FileNotFoundException: /sys/class/gpio/gpio61/direction:
+ *  open failed: EACCESS (Permission denied)
+ *                                     
  ***************************************************************************
  */
 package bfh.ti.shakytable;
@@ -25,6 +34,12 @@ public class SysfsFileGPIO {
 
 	public String gpio;
 	public char value;
+	private FileWriter unexportFile;
+	private FileWriter exportFile;
+	private FileWriter directionFile;
+	private FileWriter gpioNumber;
+	private BufferedReader fileReader;
+
 	/*
 	 * Define LEDs and Buttons
 	 */
@@ -61,8 +76,10 @@ public class SysfsFileGPIO {
 			/*
 			 * Open file handles to GPIO port unexport and export controls
 			 */
-			FileWriter unexportFile = new FileWriter(SysFsUnexport);
-			FileWriter exportFile = new FileWriter(SysFsExport);
+			if (unexportFile == null)
+				unexportFile = new FileWriter(SysFsUnexport);
+			if (exportFile == null)
+				exportFile = new FileWriter(SysFsExport);
 
 			/*
 			 * Clear the port, if needed
@@ -72,7 +89,7 @@ public class SysfsFileGPIO {
 			if (exportFileCheck.exists()) {
 				unexportFile.write(gpio);
 				unexportFile.flush();
-				unexportFile.close();
+				//unexportFile.close();
 			}
 
 			/*
@@ -80,7 +97,7 @@ public class SysfsFileGPIO {
 			 */
 			exportFile.write(gpio);
 			exportFile.flush();
-			exportFile.close();
+			//exportFile.close();
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -97,10 +114,13 @@ public class SysfsFileGPIO {
 			 * Open file handles to GPIO port unexport controls
 			 */
 
-			FileWriter unexportFile = new FileWriter(SysFsUnexport);
+			close();
+
+			if (unexportFile == null)
+				unexportFile = new FileWriter(SysFsUnexport);
 			unexportFile.write(gpio);
 			unexportFile.flush();
-			unexportFile.close();
+			//unexportFile.close();
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -116,15 +136,16 @@ public class SysfsFileGPIO {
 			/*
 			 * Open file handle to port input/output control
 			 */
-			FileWriter directionFile = new FileWriter(SysFsGpio + gpio
-					+ SysFsDirection);
+			if (directionFile == null)
+				directionFile = new FileWriter(SysFsGpio + gpio
+						+ SysFsDirection);
 
 			/*
 			 * Set port for output
 			 */
 			directionFile.write(GPIO_OUT);
 			directionFile.flush();
-			directionFile.close();
+			//directionFile.close();
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -140,15 +161,16 @@ public class SysfsFileGPIO {
 			/*
 			 * Open file handle to port input/output control
 			 */
-			FileWriter directionFile = new FileWriter(SysFsGpio + gpio
-					+ SysFsDirection);
+			if (directionFile == null)
+				directionFile = new FileWriter(SysFsGpio + gpio
+						+ SysFsDirection);
 
 			/*
 			 * Set port for output
 			 */
 			directionFile.write(GPIO_IN);
 			directionFile.flush();
-			directionFile.close();
+			//directionFile.close();
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -164,12 +186,12 @@ public class SysfsFileGPIO {
 			/*
 			 * Set up File I/O and write to the GPIO
 			 */
-			FileWriter gpioNumber = new FileWriter(SysFsGpio + gpio
-					+ SysFsValue);
+			if (gpioNumber == null)
+				gpioNumber = new FileWriter(SysFsGpio + gpio + SysFsValue);
 
 			gpioNumber.write("" + value);
 			gpioNumber.flush();
-			gpioNumber.close();
+			//gpioNumber.close();
 			return true;
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -186,13 +208,32 @@ public class SysfsFileGPIO {
 		 */
 		String value;
 		try {
-			BufferedReader fileReader = new BufferedReader(new FileReader(
-					SysFsGpio + gpio + SysFsValue));
+			if (fileReader == null)
+				fileReader = new BufferedReader(new FileReader(SysFsGpio + gpio
+						+ SysFsValue));
 			value = fileReader.readLine();
-			fileReader.close();
+			//fileReader.close();
 		} catch (IOException ex) {
 			return -1;
 		}
 		return Integer.valueOf(value);
+	}
+
+	public void close() {
+		try {
+			if (unexportFile != null)
+				unexportFile.close();
+			if (exportFile != null)
+				exportFile.close();
+			//if (directionFile != null)
+			//	directionFile.close();
+			if (gpioNumber != null)
+				gpioNumber.close();
+			if (fileReader != null)
+				fileReader.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

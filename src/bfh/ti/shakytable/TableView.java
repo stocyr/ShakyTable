@@ -4,7 +4,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -24,7 +23,7 @@ public class TableView extends View {
 
 	final static float led_velocity_sensivity = 40;
 	final static float frequency = 50f;
-	
+
 	private I2CMotionSensor motion;
 
 	private SysfsFileGPIO led1;
@@ -65,36 +64,31 @@ public class TableView extends View {
 		// initialize I2C
 		motion = new I2CMotionSensor();
 	}
-	
-	public void onStop() {
-/*		if (timer != null) {
-			timer.cancel();
-			timer.purge();
-			timer = null;
-		}
 
-		if (myTimerT != null) {
-			myTimerT.cancel();
-			myTimerT = null;
-		}*/
-		
-		
+	public void onStop() {
 		scheduleTaskExecutor.shutdown();
 		try {
 			scheduleTaskExecutor.awaitTermination(1, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
-		// TODO: doesn't work yet - they still light up after killing!!
+
 		led1.write_value(1);
 		led2.write_value(1);
 		led3.write_value(1);
 		led4.write_value(1);
+		// led1.close();
+		// led2.close();
+		// led3.close();
+		// led4.close();
+		// button1.close();
+		// button2.close();
+		// button3.close();
+		// button4.close();
 		motion.close();
 		Log.d("view", "onStop done");
 	}
-	
+
 	public void onRestart() {
 		start_scheduler();
 	}
@@ -133,10 +127,11 @@ public class TableView extends View {
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 				acceleration = motion.getTemp();
-				Log.d("new acceleration", "ax = "+acceleration.x+"\tay = "+acceleration.y);
-				handle_buttons();
-				handle_leds();
-				trigger_physics_engine(acceleration.x-2, acceleration.y);
+				Log.d("new acceleration", "ax = " + acceleration.x + "\tay = "
+						+ acceleration.y);
+				handle_buttons(); // --> causes the GC to execute every ~ 50ms
+				handle_leds(); // --> causes the GC to execute every ~ 250ms
+				trigger_physics_engine(acceleration.x - 2, acceleration.y);
 			}
 		}, 0, (int) (1000 / frequency), TimeUnit.MILLISECONDS);
 	}
