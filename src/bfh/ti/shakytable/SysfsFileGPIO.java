@@ -164,6 +164,7 @@ public class SysfsFileGPIO {
 			/*
 			 * Set up File I/O and write to the GPIO
 			 */
+			// THIS IS CLOSE TO A MEMORY LEAK! TRIGGERS GC EVERY 250ms
 			FileWriter gpioNumber = new FileWriter(SysFsGpio + gpio
 					+ SysFsValue);
 
@@ -182,10 +183,11 @@ public class SysfsFileGPIO {
 	 */
 	public int read_value() {
 		/*
-		 * Set up File I/O and reade from the GPIO
+		 * Set up File I/O and read from the GPIO
 		 */
 		String value;
 		try {
+			// THIS IS CLOSE TO A MEMORY LEAK! TRIGGERS GC EVERY 50ms
 			BufferedReader fileReader = new BufferedReader(new FileReader(
 					SysFsGpio + gpio + SysFsValue));
 			value = fileReader.readLine();

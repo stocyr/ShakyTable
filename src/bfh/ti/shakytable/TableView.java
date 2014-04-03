@@ -20,6 +20,7 @@ public class TableView extends View {
 	private Ball ball;
 
 	private Point acceleration = new Point();
+	private Point offset = new Point();
 
 	final static float led_velocity_sensivity = 40;
 	final static float frequency = 50f;
@@ -110,8 +111,7 @@ public class TableView extends View {
 		ball = new Ball(frequency);
 
 		// since we only get the parents view dimension by the first call of
-		// "onMeasure",
-		// we weren't able to set the balls size yet:
+		// "onMeasure", we weren't able to set the balls size yet:
 		ball.radius = Ball.relative_size
 				* Math.max(window_height, window_width);
 
@@ -127,11 +127,12 @@ public class TableView extends View {
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 				acceleration = motion.getTemp();
-				Log.d("new acceleration", "ax = " + acceleration.x + "\tay = "
-						+ acceleration.y);
+				//Log.d("acc", "sensor = (" + acceleration.x + ","
+				//		+ acceleration.y + ")");
 				handle_buttons(); // --> causes the GC to execute every ~ 50ms
 				handle_leds(); // --> causes the GC to execute every ~ 250ms
-				trigger_physics_engine(acceleration.x - 2, acceleration.y);
+				trigger_physics_engine(acceleration.x - offset.x,
+						acceleration.y - offset.y);
 			}
 		}, 0, (int) (1000 / frequency), TimeUnit.MILLISECONDS);
 	}
@@ -147,6 +148,19 @@ public class TableView extends View {
 			ball.set_mass(Ball.masses[2]);
 		else if (button4.read_value() == 0)
 			ball.set_mass(Ball.masses[3]);
+
+		// if all 4 buttons are pressed, "calibrate" the motion sensor
+		if (button1.read_value() == 0 && button2.read_value() == 0
+				&& button3.read_value() == 0 && button4.read_value() == 0) {
+			// we have to assign both of the values like this here because
+			// java is "by reference" most of the time so we'd just get a
+			// reference to the actual element in the motion object -.-
+			// (which would result in the offset being updated according
+			// to the current motion sensor value all the time -> bad) 
+			offset.x = motion.getTemp().x;
+			offset.y = motion.getTemp().y;
+			Log.i("calibration", "offset = (" + offset.x + "," + offset.y + ")");
+		}
 	}
 
 	public void handle_leds() {
