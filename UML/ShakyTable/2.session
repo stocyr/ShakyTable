@@ -1,0 +1,14 @@
+window_sizes 1800 945 450 1350 720 82
+diagrams
+  active  classdiagram_ref 134530 // ShakyTable
+    1071 631 100 4 0 0
+end
+show_stereotypes
+selected operation_ref 135810 // readValue
+open
+  class_ref 134658 // Ball
+  class_ref 134914 // I2C
+  class_ref 135042 // TableView
+  class_ref 135170 // GPIO
+end
+end
