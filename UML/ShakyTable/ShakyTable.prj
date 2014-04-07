@@ -1,7 +1,7 @@
 format 76
 "ShakyTable"
-  revision 2
-  modified_by 2 "Marcel"
+  revision 4
+  modified_by 2 "cyril"
 
 
   
@@ -74,6 +74,13 @@ format 76
 	    classrelation_ref 134530 // <composition>
 	  b role_name "" private
 	    classrelation_ref 134658 // <composition>
+      end
+
+      classrelation 143362 // <generalisation>
+	relation 142210 ---|>
+	  a public
+	    classrelation_ref 143362 // <generalisation>
+	  b parent class_ref 141954 // Activity
       end
     end
 
@@ -169,14 +176,6 @@ format 76
       classrelation 136194 // <association>
 	relation_ref 135298 // <association>
       end
-
-      classrelation 136322 // <association>
-	relation 135426 ----
-	  a role_name "" private
-	    classrelation_ref 136322 // <association>
-	  b role_name "" private
-	    classrelation_ref 136450 // <association>
-      end
     end
 
     class 134786 "PhysicsEngine"
@@ -199,11 +198,7 @@ format 76
       idl_decl ""
       explicit_switch_type ""
       
-      classrelation 135426 // <composition>
-	relation_ref 134914 // <composition>
-      end
-
-      operation 134530 "readValue"
+      operation 134530 "read"
 	public explicit_return_type ""
 	nparams 0
 	
@@ -213,7 +208,7 @@ format 76
 	
       end
 
-      operation 134658 "writeValue"
+      operation 134658 "write"
 	public explicit_return_type ""
 	nparams 0
 	
@@ -221,19 +216,6 @@ format 76
 	
 	
 	
-      end
-
-      attribute 135298 "DeviceConstants"
-	private explicit_type ""
-	cpp_decl ""
-	java_decl ""
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-      end
-
-      classrelation 136450 // <association>
-	relation_ref 135426 // <association>
       end
 
       classrelation 136578 // <association>
@@ -246,6 +228,40 @@ format 76
 
       classrelation 136706 // <association>
 	relation_ref 135554 // <association>
+      end
+
+      operation 142466 "open"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	
+	
+      end
+
+      operation 142594 "close"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	
+	
+      end
+
+      operation 142722 "SetSlaveAddress"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	
+	
+      end
+
+      classrelation 143618 // <composition>
+	relation_ref 142338 // <composition>
       end
     end
 
@@ -288,20 +304,12 @@ format 76
 	idl_decl ""
       end
 
-      classrelation 135298 // <composition>
-	relation 134914 *---
-	  a role_name "" private
-	    classrelation_ref 135298 // <composition>
-	  b role_name "" private
-	    classrelation_ref 135426 // <composition>
-      end
-
-      classrelation 135554 // <composition>
+      classrelation 135554 // 8 (<composition>)
 	relation 135042 *---
-	  a role_name "" private
-	    classrelation_ref 135554 // <composition>
-	  b role_name "" private
-	    classrelation_ref 135682 // <composition>
+	  a role_name "8" private
+	    classrelation_ref 135554 // 8 (<composition>)
+	  b role_name "1" private
+	    classrelation_ref 135682 // 1 (<composition>)
       end
 
       classrelation 135810 // <composition>
@@ -311,9 +319,24 @@ format 76
 	  b role_name "" private
 	    classrelation_ref 135938 // <composition>
       end
+
+      classrelation 143234 // <generalisation>
+	relation 142082 ---|>
+	  a public
+	    classrelation_ref 143234 // <generalisation>
+	  b parent class_ref 141826 // View
+      end
+
+      classrelation 143746 // <composition>
+	relation 142466 *---
+	  a role_name "" private
+	    classrelation_ref 143746 // <composition>
+	  b role_name "" private
+	    classrelation_ref 143874 // <composition>
+      end
     end
 
-    class 135170 "GPIO"
+    class 135170 "SysfsFileGPIO"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -322,7 +345,7 @@ format 76
       idl_decl ""
       explicit_switch_type ""
       
-      classrelation 135682 // <composition>
+      classrelation 135682 // 1 (<composition>)
 	relation_ref 135042 // <composition>
       end
 
@@ -395,7 +418,7 @@ format 76
       end
     end
 
-    class 135298 "Scheduler"
+    class 135298 "ScheduledExecutorService"
       visibility package 
       cpp_decl ""
       java_decl ""
@@ -415,6 +438,118 @@ format 76
 	  b role_name "" private
 	    classrelation_ref 136194 // <association>
       end
+
+      operation 142338 "scheduleAtFixedRate"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	
+	
+      end
+    end
+
+    class 141826 "View"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+    end
+
+    class 141954 "Activity"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+    end
+
+    class 142082 "I2CMotionSensor"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      operation 142850 "getMotion"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	
+	
+      end
+
+      operation 142978 "close"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	
+	
+      end
+
+      attribute 142338 "LIS302DL_CONFIG"
+	private explicit_type ""
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142466 "LIS302DL_12_BIT"
+	private explicit_type ""
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142594 "LIS302DL_I2C_ADDR"
+	private explicit_type ""
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      attribute 142722 "LIS302DL_FILE_NAME"
+	private explicit_type ""
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
+
+      classrelation 143490 // <composition>
+	relation 142338 *---
+	  a role_name "" private
+	    classrelation_ref 143490 // <composition>
+	  b role_name "" private
+	    classrelation_ref 143618 // <composition>
+      end
+
+      classrelation 143874 // <composition>
+	relation_ref 142466 // <composition>
+      end
     end
   end
+
+  package_ref 128002 // Android
 end
