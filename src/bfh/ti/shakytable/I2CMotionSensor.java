@@ -57,7 +57,7 @@ public class I2CMotionSensor {
 
 	}
 
-	public Point getTemp() {
+	public Point getMotion() {
 		if (i2c != null) {
 			i2cCommBuffer[0] = 0x29;
 			i2c.write(fileHande, i2cCommBuffer, 1);
@@ -69,7 +69,6 @@ public class I2CMotionSensor {
 //			Motion >>= 4;
 //	
 //			/* Convert current motion to float */
-//			TempC = 1.0 * Motion * 0.0625;
 			if(Motion > 127){
 				Motion -= 255;
 			}
@@ -85,7 +84,6 @@ public class I2CMotionSensor {
 //			Motion = Motion >> 4;
 //	
 //			/* Convert current motion to float */
-//			TempC = 1.0 * Motion * 0.0625;
 			if(Motion > 127){
 				Motion -= 255;
 			}
