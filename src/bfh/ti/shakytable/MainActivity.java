@@ -27,10 +27,13 @@ public class MainActivity extends Activity {
 	public void onStop() {
 		Log.d("mainActivity", "onStop trigger");
 		tv.onStop();
-		// TODO: check whether this is neccessary
-		android.os.Process.killProcess(android.os.Process.myPid());
-		finish();
 		super.onStop();
+	}
+	
+	@Override
+	public void onDestroy() {
+		tv.onDestroy();
+		super.onDestroy();
 	}
 
 	@Override

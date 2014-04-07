@@ -78,6 +78,13 @@ public class TableView extends View {
 		led2.write_value(1);
 		led3.write_value(1);
 		led4.write_value(1);
+
+		Log.d("view", "onStop done");
+	}
+
+	public void onDestroy() {
+		motion.close();
+
 		// led1.close();
 		// led2.close();
 		// led3.close();
@@ -86,8 +93,6 @@ public class TableView extends View {
 		// button2.close();
 		// button3.close();
 		// button4.close();
-		motion.close();
-		Log.d("view", "onStop done");
 	}
 
 	public void onRestart() {
@@ -127,8 +132,8 @@ public class TableView extends View {
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
 				acceleration = motion.getTemp();
-				//Log.d("acc", "sensor = (" + acceleration.x + ","
-				//		+ acceleration.y + ")");
+				// Log.d("acc", "sensor = (" + acceleration.x + ","
+				// + acceleration.y + ")");
 				handle_buttons(); // --> causes the GC to execute every ~ 50ms
 				handle_leds(); // --> causes the GC to execute every ~ 250ms
 				trigger_physics_engine(acceleration.x - offset.x,
@@ -156,7 +161,7 @@ public class TableView extends View {
 			// java is "by reference" most of the time so we'd just get a
 			// reference to the actual element in the motion object -.-
 			// (which would result in the offset being updated according
-			// to the current motion sensor value all the time -> bad) 
+			// to the current motion sensor value all the time -> bad)
 			offset.x = motion.getTemp().x;
 			offset.y = motion.getTemp().y;
 			Log.i("calibration", "offset = (" + offset.x + "," + offset.y + ")");
