@@ -131,7 +131,7 @@ public class TableView extends View {
 		scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
 		scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
 			public void run() {
-				acceleration = motion.getTemp();
+				acceleration = motion.getMotion();
 				// Log.d("acc", "sensor = (" + acceleration.x + ","
 				// + acceleration.y + ")");
 				handle_buttons(); // --> causes the GC to execute every ~ 50ms
@@ -162,8 +162,8 @@ public class TableView extends View {
 			// reference to the actual element in the motion object -.-
 			// (which would result in the offset being updated according
 			// to the current motion sensor value all the time -> bad)
-			offset.x = motion.getTemp().x;
-			offset.y = motion.getTemp().y;
+			offset.x = motion.getMotion().x;
+			offset.y = motion.getMotion().y;
 			Log.i("calibration", "offset = (" + offset.x + "," + offset.y + ")");
 		}
 	}

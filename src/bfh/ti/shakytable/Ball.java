@@ -3,7 +3,6 @@ package bfh.ti.shakytable;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 
 public class Ball {
 	private final static float wall_bounce_factor = 0.8f;
